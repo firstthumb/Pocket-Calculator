@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class CalculatorServiceImpl implements CalculatorService {
     private static final Logger logger = Logger.getLogger(CalculatorServiceImpl.class.getName());
 
-    public static final int DECIMAL_PRECISION = 2;
+    public static final int DECIMAL_PRECISION = 10;
 
     private static final BigDecimal BIG_MAX_DOUBLE = BigDecimal.valueOf(Long.MAX_VALUE);
     private static final BigDecimal BIG_MIN_DOUBLE = BigDecimal.valueOf(Long.MIN_VALUE);
