@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Singleton;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +13,8 @@ import java.util.logging.Logger;
 @Singleton
 public class CalculatorServiceImpl implements CalculatorService {
     private static final Logger logger = Logger.getLogger(CalculatorServiceImpl.class.getName());
+
+    public static final int DECIMAL_PRECISION = 2;
 
     private static final BigDecimal BIG_MAX_DOUBLE = BigDecimal.valueOf(Long.MAX_VALUE);
     private static final BigDecimal BIG_MIN_DOUBLE = BigDecimal.valueOf(Long.MIN_VALUE);
@@ -46,8 +49,6 @@ public class CalculatorServiceImpl implements CalculatorService {
     @Override
     public BigDecimal divide(BigDecimal firstNumber, BigDecimal secondNumber) {
         logger.log(Level.INFO, "CalculationService divide(" + firstNumber + ", " + secondNumber + ")");
-        return firstNumber.divide(secondNumber);
+        return firstNumber.divide(secondNumber, DECIMAL_PRECISION, RoundingMode.HALF_UP);
     }
-
-
 }
