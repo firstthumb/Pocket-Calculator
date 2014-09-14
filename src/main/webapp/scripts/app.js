@@ -33,6 +33,8 @@ app.controller('appCtrl', function($scope, AddService, SubtractService, Multiply
 	$scope.add = function(item) {
         if (item == 'clear') {
             $scope.reset();
+        } else if(item == '?') {
+            alert("Pocket Calculator");
         } else if(item == '-' || item == '+' || item == '/' || item == '*') {
             if($scope.typingFirstNumber) {
                 $scope.firstValue = eval($scope.firstNumber.join(''));
@@ -73,11 +75,6 @@ app.controller('appCtrl', function($scope, AddService, SubtractService, Multiply
                 $scope.secondNumber.push(item);
             }
         }
-	};
-
-	$scope.solve = function() {
-        if(! /[0-9]/.test($scope.formula.slice(-1)[0])) return eval($scope.formula.slice(0, $scope.formula.length - 1).join(''));
-        else return eval($scope.formula.join(''));
 	};
 
 	$scope.reset = function() {
