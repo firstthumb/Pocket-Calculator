@@ -50,6 +50,9 @@ app.controller('appCtrl', function($scope, AddService, SubtractService, Multiply
 
             $scope.selectService(item);
         } else if(item == '=') {
+            if($scope.continueCalculation) {
+                return;
+            }
             $scope.secondValue = eval($scope.secondNumber.join(''));
             $scope.service.get({ first: $scope.firstValue, second: $scope.secondValue }, function(data) {
                 $scope.result = data.value;
@@ -65,15 +68,24 @@ app.controller('appCtrl', function($scope, AddService, SubtractService, Multiply
                 $scope.continueCalculation = false;
             }
 
-            (! /[0-9]/.test(item) && ! /[0-9]/.test($scope.formula.slice(-1)[0])) ? $scope.remove() : null;
-            ($scope.formula == '0' && /[0-9]/.test(item)) ? $scope.formula = [item] : $scope.formula.push(item);
-            $scope.result = 0;
             if($scope.typingFirstNumber) {
+                if($scope.firstNumber.length >= 10) {
+                    console.log("Max 10 digit");
+                    return;
+                }
                 $scope.firstNumber.push(item);
             }
             else {
+                if($scope.secondNumber.length >= 10) {
+                    console.log("Max 10 digit");
+                    return;
+                }
                 $scope.secondNumber.push(item);
             }
+
+            (! /[0-9]/.test(item) && ! /[0-9]/.test($scope.formula.slice(-1)[0])) ? $scope.remove() : null;
+            ($scope.formula == '0' && /[0-9]/.test(item)) ? $scope.formula = [item] : $scope.formula.push(item);
+            $scope.result = 0;
         }
 	};
 
